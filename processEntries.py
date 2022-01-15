@@ -137,9 +137,10 @@ def generateLatex13620(style, businessData, buildData, codingData, wholeData, me
     building = ''
     coding = ''
     business = ''
-  
+    whole = '' 
+ 
     # Check if no entries for the team
-    if len(bidx) + len(cidx) + len(aidx) == 0:
+    if (len(bidx) + len(cidx) + len(aidx) + len(widx)) == 0:
         return None
  
     if (len(bidx) > 0): 
@@ -151,10 +152,12 @@ def generateLatex13620(style, businessData, buildData, codingData, wholeData, me
     if (len(aidx) > 0): 
         business += style.businessHeader
         business += " ".join([style.businessBlock(businessData[aidx[f]], f) for f in xrange(len(aidx))])
-    # if wIs: whole += " ".join([style.wholeBlock(wholeData[widx[f]], f) for f in xrange(len(widx))])
+    if (len(widx) > 0):
+        whole += style.wholeHeader
+        whole += " ".join([style.wholeBlock(wholeData[widx[f]], f) for f in xrange(len(widx))])
 
     # Gather all of the material in order. "material" is a string file that contains the entire LaTeX document
-    material = style.header + date + building + coding + business + style.footer
+    material = style.header + date + whole + building + coding + business + style.footer
     ###################################
 
     # Need to reformat date to not use backslashes in the filename
@@ -189,7 +192,7 @@ if __name__ == '__main__':
     spec13620 = style13620.Team13620()
 
     # For each date, create the file
-    for i in xrange(len(dateList)):
+    for i in xrange(3): #len(dateList)):
         print('DATE {}'.format(dateList[i]))
         # Generate LaTeX file. Then PDF, then PNG
         fileName13620 = generateLatex13620(spec13620, aData, bData, cData, wData, dateList[i])

@@ -19,6 +19,7 @@ class Team13620(object):
         colors += "\definecolor{buildBlue}{RGB}{212, 217, 222}"
         colors += "\definecolor{codeBlue}{RGB}{214, 223, 222}"
         colors += "\definecolor{businessBlue}{RGB}{222, 217, 227}" 
+        colors += "\definecolor{wholeBlue}{RGB}{220, 220, 220}" #TODO change
         colors += "\definecolor{backgroundColor}{RGB}{85, 102, 115}"
 
         self.header += colors
@@ -26,6 +27,7 @@ class Team13620(object):
         self.header += "\pagecolor{backgroundColor}" 
         self.footer = "\end{document}"
 
+        self.wholeHeader = "\marginnote{\\begin{tcolorbox}[colback=wholeBlue,colframe=white,coltext=textGrey] {\Large \\rotatebox{90}{\\textbf{whole team}}} \end{tcolorbox}}"
         self.buildingHeader = "\marginnote{\\begin{tcolorbox}[colback=buildBlue,colframe=white,coltext=textGrey] {\Large \\rotatebox{90}{\\textbf{building}}} \end{tcolorbox}}"
         self.codingHeader = "\marginnote{\\begin{tcolorbox}[colback=codeBlue,colframe=white,coltext=textGrey] {\Large \\rotatebox{90}{\\textbf{coding}}} \end{tcolorbox}}"
         self.businessHeader = "\marginnote{\\begin{tcolorbox}[colback=businessBlue,colframe=white,coltext=textGrey] {\Large \\rotatebox{90}{\\textbf{business}}} \end{tcolorbox}}"
@@ -66,4 +68,10 @@ class Team13620(object):
 
     def wholeBlock(style, data, i):
         # "data" is the text, "i" is "Afternoon" or "Morning". 
-        return None
+        txt = "\\begin{tcolorbox}[colback=wholeBlue,colframe=white,coltext=textGrey, breakable]"
+        txt += "\\textit{\\textbf{focus: }} \\\\" + data['Focus'] + "\\\\ \\\\"
+        txt += "\\textit{\\textbf{summary: }} \\\\" + data['Summary'] + "\\\\ \\\\"
+        txt += "\\textit{\\textbf{challenges: }} \\\\" + data['Challenges/Problems'] + "\\\\ \\\\"
+        txt += "\\textit{\\textbf{next steps: }} \\\\" + data['Next Steps']
+        txt += "\end{tcolorbox}"
+        return txt
