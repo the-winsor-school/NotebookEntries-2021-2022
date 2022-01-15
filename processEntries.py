@@ -134,13 +134,23 @@ def generateLatex13620(style, businessData, buildData, codingData, wholeData, me
     ###################################
     # For each of our three headers, write the header (including the dotted line)
     # Then, within each header, if that subteam has entries, generate the color box for each entry
-    building = style.buildingHeader
-    coding = style.codingHeader
-    business = style.businessHeader
-    
-    if (len(bidx) > 0): building += "".join([style.buildBlock(buildData[bidx[f]], f) for f in xrange(len(bidx))])
-    if (len(cidx) > 0): coding += " ".join([style.codingBlock(codingData[cidx[f]], f) for f in xrange(len(cidx))])
-    if (len(aidx) > 0): business += " ".join([style.businessBlock(businessData[aidx[f]], f) for f in xrange(len(aidx))])
+    building = ''
+    coding = ''
+    business = ''
+  
+    # Check if no entries for the team
+    if len(bidx) + len(cidx) + len(aidx) == 0:
+        return None
+ 
+    if (len(bidx) > 0): 
+        building += style.buildingHeader
+        building += "".join([style.buildBlock(buildData[bidx[f]], f) for f in xrange(len(bidx))])
+    if (len(cidx) > 0): 
+        coding += style.codingHeader
+        coding += " ".join([style.codingBlock(codingData[cidx[f]], f) for f in xrange(len(cidx))])
+    if (len(aidx) > 0): 
+        business += style.businessHeader
+        business += " ".join([style.businessBlock(businessData[aidx[f]], f) for f in xrange(len(aidx))])
     # if wIs: whole += " ".join([style.wholeBlock(wholeData[widx[f]], f) for f in xrange(len(widx))])
 
     # Gather all of the material in order. "material" is a string file that contains the entire LaTeX document
@@ -159,6 +169,8 @@ def generateLatex13620(style, businessData, buildData, codingData, wholeData, me
     return save_date
 
 def generatePDF(fileName, teamNumber):
+    if fileName is None: return 
+
     # Generate PDF
     # Use subprocess instead of os.system so that we can operate in different directory
     p = subprocess.Popen(['pdflatex', '{}.tex'.format(fileName)], cwd='pages/{}'.format(teamNumber))
@@ -183,6 +195,6 @@ if __name__ == '__main__':
         fileName13620 = generateLatex13620(spec13620, aData, bData, cData, wData, dateList[i])
         generatePDF(fileName13620, spec13620.teamNumber)
 
-        fileName20409 = generateLatex20409(spec20409, aData, bData, cData, wData, dateList[i])
-        generatePDF(fileName20409, spec20409.teamNumber)
+        #fileName20409 = generateLatex20409(spec20409, aData, bData, cData, wData, dateList[i])
+        #generatePDF(fileName20409, spec20409.teamNumber)
 

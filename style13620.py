@@ -10,8 +10,10 @@ class Team13620(object):
 
         self.header = "\documentclass[16pt]{extarticle}"
         self.header += "\usepackage[margin=0.6in]{geometry}"
-        self.header += "\usepackage{tikz,lipsum, dashrule, comment, eso-pic, ifthen, changepage, xcolor, paracol} \usepackage[most]{tcolorbox} \\tcbuselibrary{listings,breakable}"
-        self.header += "\usepackage[T1]{fontenc}" # Fonts technically its \usepackage{mlmodern}
+        self.header += "\usepackage{tikz,lipsum, dashrule, comment, eso-pic, ifthen, changepage, xcolor, graphicx, marginnote}"
+        self.header += "\usepackage[most]{tcolorbox} \\tcbuselibrary{listings,breakable}"
+        self.header += "\usepackage{lmodern} \usepackage[default]{lato} \usepackage[T1]{fontenc}" # Fonts technically its \usepackage{mlmodern}
+        #self.header += "\\reversemarginpar"
 
         colors = "\definecolor{textGrey}{RGB}{0, 0, 0}" 
         colors += "\definecolor{buildBlue}{RGB}{212, 217, 222}"
@@ -22,11 +24,11 @@ class Team13620(object):
         self.header += colors
         self.header += "\color{white} \\renewcommand{\\baselinestretch}{1.3} \\pagestyle{empty} \\begin{document}"
         self.header += "\pagecolor{backgroundColor}" 
-        self.footer = "\end{paracol}\end{document}"
+        self.footer = "\end{document}"
 
-        self.buildingHeader = "\\begin{paracol}{3} \\begin{tcolorbox}[colback=buildBlue,colframe=white,coltext=textGrey] {\Large \\textbf{building}} \end{tcolorbox}"
-        self.codingHeader = "\switchcolumn \\begin{tcolorbox}[colback=codeBlue,colframe=white,coltext=textGrey] {\Large \\textbf{coding}} \end{tcolorbox}"
-        self.businessHeader = "\switchcolumn \\begin{tcolorbox}[colback=businessBlue,colframe=white,coltext=textGrey] {\Large \\textbf{business}} \end{tcolorbox}"
+        self.buildingHeader = "\marginnote{\\begin{tcolorbox}[colback=buildBlue,colframe=white,coltext=textGrey] {\Large \\rotatebox{90}{\\textbf{building}}} \end{tcolorbox}}"
+        self.codingHeader = "\marginnote{\\begin{tcolorbox}[colback=codeBlue,colframe=white,coltext=textGrey] {\Large \\rotatebox{90}{\\textbf{coding}}} \end{tcolorbox}}"
+        self.businessHeader = "\marginnote{\\begin{tcolorbox}[colback=businessBlue,colframe=white,coltext=textGrey] {\Large \\rotatebox{90}{\\textbf{business}}} \end{tcolorbox}}"
 
 
     def formatDate(self, date_pretty):
