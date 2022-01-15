@@ -9,8 +9,18 @@ class Team20409(object):
         self.teamNumber = 20409
 
         self.header = "\documentclass[16pt]{extarticle}"
-        self.header += "\usepackage[margin=0.6in]{geometry} \usepackage{tikz,lipsum,lmodern} \usepackage[most]{tcolorbox} \\tcbuselibrary{listings,breakable} \usepackage[default]{lato} \usepackage[T1]{fontenc} \usepackage{tikz} \usepackage{dashrule} \usepackage{comment} \usepackage{eso-pic} \usepackage{ifthen} \usepackage{changepage} \usepackage{xcolor}"
-        self.header += "\definecolor{customBlack}{RGB}{120, 137, 129} \definecolor{buildBlue}{RGB}{235, 235, 235} \definecolor{codeBlue}{RGB}{215, 215, 215} \definecolor{businessBlue}{RGB}{197, 197, 197} \definecolor{lineBlue}{RGB}{0,89,89} \definecolor{textGrey}{RGB}{0, 0, 0} \definecolor{nameGrey}{RGB}{255, 255, 255} \definecolor{wholeBlue}{RGB}{188, 217, 223} \definecolor{backgroundColor}{RGB}{245, 251, 255}"
+        self.header += "\usepackage[margin=0.6in]{geometry} \usepackage{tikz,lipsum,lmodern} \usepackage[most]{tcolorbox} \\tcbuselibrary{listings,breakable} \usepackage[default]{lato} \usepackage[T1]{fontenc} \usepackage{tikz} \usepackage{dashrule} \usepackage{comment} \usepackage{eso-pic} \usepackage{ifthen} \usepackage{changepage} \usepackage{xcolor}" # \usepackage{tinos}"
+
+        colors = "\definecolor{customBlack}{RGB}{120, 137, 129}"
+        colors += "\definecolor{buildBlue}{RGB}{233, 235, 235}"
+        colors += "\definecolor{codeBlue}{RGB}{214, 216, 218} "
+        colors += "\definecolor{businessBlue}{RGB}{196, 200, 202}" 
+
+        colors += "\definecolor{textGrey}{RGB}{0, 0, 0}"   # TODO need appropriate color
+        colors += "\definecolor{wholeBlue}{RGB}{188, 217, 223}"  #TODO need appropriate color 
+        colors += "\definecolor{backgroundColor}{RGB}{246, 251, 255}"
+
+        self.header += colors
         self.header += "\color{textGrey} \\renewcommand{\\baselinestretch}{1.3} \\pagestyle{empty} \\begin{document}"
         self.header += "\pagecolor{backgroundColor}" 
         self.footer = "\end{document}"
@@ -20,8 +30,8 @@ class Team20409(object):
         self.challengesHeader = "\\begin{center} {\\rule[1mm]{7.25cm}{0.5mm}} {\Large CHALLENGES } {\\rule[1mm]{7.25cm}{0.5mm}} \\end{center}"
         self.nextStepsHeader = "\\begin{center} {\\rule[1mm]{7.4cm}{0.5mm}} {\Large NEXT STEPS } {\\rule[1mm]{7.4cm}{0.5mm}} \\end{center}"
 
-    def formatDate(self, date_pretty, people):
-        return "\\begin{tcolorbox}[colback=customBlack,colframe=customBlack,coltext=white,sidebyside, lower separated=false, after skip=20pt plus 2pt]  {\Huge " + date_pretty + "}   \\tcblower  \\begingroup      \\fontsize{11.9pt}{10pt}\selectfont      \\textcolor{nameGrey}{ATTENDEES: " + people + "}  \endgroup \end{tcolorbox}"
+    def formatDate(self, date_pretty):
+        return "\\begin{tcolorbox}[colback=customBlack,colframe=customBlack,coltext=white,sidebyside, lower separated=false, after skip=20pt plus 2pt]  {\Huge " + date_pretty + "}   \\tcblower \end{tcolorbox}" 
 
     def buildBlock(self, data, i):
         # "data" is the text, "i" is index. +1 to make it one indexed instead of zero indexed

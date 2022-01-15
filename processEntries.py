@@ -61,24 +61,11 @@ def generateLatex20409(style, businessData, buildData, codingData, wholeData, me
     bidx = findIndicesForDateAndTeam(buildData, meeting_date, style.teamNumber)
     cidx = findIndicesForDateAndTeam(codingData, meeting_date, style.teamNumber)
     widx = findIndicesForDateAndTeam(wholeData, meeting_date, style.teamNumber)
-    # Create boolean flag for if this subteam has any entries for this date
-    aIs = (len(aidx) > 0)
-    bIs = (len(bidx) > 0)
-    cIs = (len(cidx) > 0)
-    wIs = (len(widx) > 0)
     
-    # Gather the members listed for any of the entries for this date
-    apeople = list(itertools.chain(*[businessData[pa]['Members'].split(', ') for pa in aidx]))
-    bpeople = list(itertools.chain(*[buildData[pb]['Members'].split(', ') for pb in bidx]))
-    cpeople = list(itertools.chain(*[codingData[pc]['Members'].split(', ') for pc in cidx]))
-    wpeople = list(itertools.chain(*[wholeData[pw]['Members'].split(', ') for pw in widx]))
-    # By creating a set, this removes duplicates. Then create a writeable list, comma separated
-    people =  ", ".join(list(set(apeople + bpeople + cpeople + wpeople)))
-
     # Crate a nicely formatted date
     date_pretty = displayDate(meeting_date)
     # Generate the header block with the date and members list
-    date = style.formatDate(date_pretty, people) 
+    date = style.formatDate(date_pretty) 
 
     ###################################
     # For each of our three headers, write the header (including the dotted line)
@@ -88,25 +75,26 @@ def generateLatex20409(style, businessData, buildData, codingData, wholeData, me
     challenges = style.challengesHeader
     nextSteps = style.nextStepsHeader 
 
-    if bIs:
+    # If exists entries for each date, generate blocks
+    if (len(bidx) > 0):
         focus += " ".join([style.buildBlock(buildData[bidx[f]]['Focus'], f) for f in xrange(len(bidx))])
         summary += " ".join([style.buildBlock(buildData[bidx[s]]['Summary'], s) for s in xrange(len(bidx))])
         challenges += " ".join([style.buildBlock(buildData[bidx[c]]['Challenges/Problems'], c) for c in xrange(len(bidx))])
         nextSteps += " ".join([style.buildBlock(buildData[bidx[n]]['Next Steps'], n) for n in xrange(len(bidx))])
 
-    if cIs:
+    if (len(cidx) > 0):
         focus += " ".join([style.codingBlock(codingData[cidx[f]]['Focus'], f) for f in xrange(len(cidx))])
         summary += " ".join([style.codingBlock(codingData[cidx[s]]['Summary'], s) for s in xrange(len(cidx))])
         challenges += " ".join([style.codingBlock(codingData[cidx[c]]['Challenges/Problems'], c) for c in xrange(len(cidx))])
         nextSteps += " ".join([style.codingBlock(codingData[cidx[n]]['Next Steps'], n) for n in xrange(len(cidx))])
 
-    if aIs:
+    if (len(aidx) > 0):
         focus += " ".join([style.businessBlock(businessData[aidx[f]]['Focus'], f) for f in xrange(len(aidx))])
         summary += " ".join([style.businessBlock(businessData[aidx[s]]['Summary'], s) for s in xrange(len(aidx))])
         challenges += " ".join([style.businessBlock(businessData[aidx[c]]['Challenges/Problems'], c) for c in xrange(len(aidx))])
         nextSteps += " ".join([style.businessBlock(businessData[aidx[n]]['Next Steps'], n) for n in xrange(len(aidx))])
 
-    if wIs:
+    if (len(widx) > 0):
         focus += " ".join([style.wholeBlock(wholeData[widx[f]]['Focus'], f) for f in xrange(len(widx))])
         summary += " ".join([style.wholeBlock(wholeData[widx[s]]['Summary'], s) for s in xrange(len(widx))])
         challenges += " ".join([style.wholeBlock(wholeData[widx[c]]['Challenges/Problems'], c) for c in xrange(len(widx))])
@@ -137,24 +125,11 @@ def generateLatex13620(style, businessData, buildData, codingData, wholeData, me
     bidx = findIndicesForDateAndTeam(buildData, meeting_date, style.teamNumber)
     cidx = findIndicesForDateAndTeam(codingData, meeting_date, style.teamNumber)
     widx = findIndicesForDateAndTeam(wholeData, meeting_date, style.teamNumber)
-    # Create boolean flag for if this subteam has any entries for this date
-    aIs = (len(aidx) > 0)
-    bIs = (len(bidx) > 0)
-    cIs = (len(cidx) > 0)
-    wIs = (len(widx) > 0)
     
-    # Gather the members listed for any of the entries for this date
-    apeople = list(itertools.chain(*[businessData[pa]['Members'].split(', ') for pa in aidx]))
-    bpeople = list(itertools.chain(*[buildData[pb]['Members'].split(', ') for pb in bidx]))
-    cpeople = list(itertools.chain(*[codingData[pc]['Members'].split(', ') for pc in cidx]))
-    wpeople = list(itertools.chain(*[wholeData[pw]['Members'].split(', ') for pw in widx]))
-    # By creating a set, this removes duplicates. Then create a writeable list, comma separated
-    people =  ", ".join(list(set(apeople + bpeople + cpeople + wpeople)))
-
     # Crate a nicely formatted date
     date_pretty = displayDate(meeting_date)
-    # Generate the header block with the date and members list
-    date = style.formatDate(date_pretty, people) 
+    # Generate the header block with the date
+    date = style.formatDate(date_pretty) 
 
     ###################################
     # For each of our three headers, write the header (including the dotted line)
@@ -163,9 +138,9 @@ def generateLatex13620(style, businessData, buildData, codingData, wholeData, me
     coding = style.codingHeader
     business = style.businessHeader
     
-    if bIs: building += "".join([style.buildBlock(buildData[bidx[f]], f) for f in xrange(len(bidx))])
-    if cIs: coding += " ".join([style.codingBlock(codingData[cidx[f]], f) for f in xrange(len(cidx))])
-    if aIs: business += " ".join([style.businessBlock(businessData[aidx[f]], f) for f in xrange(len(aidx))])
+    if (len(bidx) > 0): building += "".join([style.buildBlock(buildData[bidx[f]], f) for f in xrange(len(bidx))])
+    if (len(cidx) > 0): coding += " ".join([style.codingBlock(codingData[cidx[f]], f) for f in xrange(len(cidx))])
+    if (len(aidx) > 0): business += " ".join([style.businessBlock(businessData[aidx[f]], f) for f in xrange(len(aidx))])
     # if wIs: whole += " ".join([style.wholeBlock(wholeData[widx[f]], f) for f in xrange(len(widx))])
 
     # Gather all of the material in order. "material" is a string file that contains the entire LaTeX document

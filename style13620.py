@@ -9,8 +9,17 @@ class Team13620(object):
         self.teamNumber = 13620
 
         self.header = "\documentclass[16pt]{extarticle}"
-        self.header += "\usepackage[margin=0.6in]{geometry} \usepackage{tikz,lipsum,lmodern} \usepackage[most]{tcolorbox} \\tcbuselibrary{listings,breakable} \usepackage[default]{lato} \usepackage[T1]{fontenc} \usepackage{tikz} \usepackage{dashrule} \usepackage{comment} \usepackage{eso-pic} \usepackage{ifthen} \usepackage{changepage} \usepackage{xcolor} \usepackage{paracol}"
-        self.header += "\definecolor{textGrey}{RGB}{0, 0, 0} \definecolor{buildBlue}{RGB}{209, 218, 219} \definecolor{codeBlue}{RGB}{211,223,223} \definecolor{businessBlue}{RGB}{223, 217, 227} \definecolor{backgroundColor}{RGB}{80, 102, 114}"
+        self.header += "\usepackage[margin=0.6in]{geometry}"
+        self.header += "\usepackage{tikz,lipsum, dashrule, comment, eso-pic, ifthen, changepage, xcolor, paracol} \usepackage[most]{tcolorbox} \\tcbuselibrary{listings,breakable}"
+        self.header += "\usepackage[T1]{fontenc}" # Fonts technically its \usepackage{mlmodern}
+
+        colors = "\definecolor{textGrey}{RGB}{0, 0, 0}" 
+        colors += "\definecolor{buildBlue}{RGB}{212, 217, 222}"
+        colors += "\definecolor{codeBlue}{RGB}{214, 223, 222}"
+        colors += "\definecolor{businessBlue}{RGB}{222, 217, 227}" 
+        colors += "\definecolor{backgroundColor}{RGB}{85, 102, 115}"
+
+        self.header += colors
         self.header += "\color{white} \\renewcommand{\\baselinestretch}{1.3} \\pagestyle{empty} \\begin{document}"
         self.header += "\pagecolor{backgroundColor}" 
         self.footer = "\end{paracol}\end{document}"
@@ -20,7 +29,7 @@ class Team13620(object):
         self.businessHeader = "\switchcolumn \\begin{tcolorbox}[colback=businessBlue,colframe=white,coltext=textGrey] {\Large \\textbf{business}} \end{tcolorbox}"
 
 
-    def formatDate(self, date_pretty, people):
+    def formatDate(self, date_pretty):
         return "{\Huge " + date_pretty + " } \\\\ " 
 
     def buildBlock(self, data, i):
