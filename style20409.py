@@ -17,7 +17,7 @@ class Team20409(object):
         colors += "\definecolor{businessBlue}{RGB}{196, 200, 202}" 
 
         colors += "\definecolor{textGrey}{RGB}{0, 0, 0}"   # TODO need appropriate color
-        colors += "\definecolor{wholeBlue}{RGB}{188, 217, 223}"  #TODO need appropriate color 
+        colors += "\definecolor{wholeBlue}{RGB}{243, 245, 245}"
         colors += "\definecolor{backgroundColor}{RGB}{246, 251, 255}"
 
         self.header += colors

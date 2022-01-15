@@ -76,6 +76,12 @@ def generateLatex20409(style, businessData, buildData, codingData, wholeData, me
     nextSteps = style.nextStepsHeader 
 
     # If exists entries for each date, generate blocks
+    if (len(widx) > 0):
+        focus += " ".join([style.wholeBlock(wholeData[widx[f]]['Focus'], f) for f in xrange(len(widx))])
+        summary += " ".join([style.wholeBlock(wholeData[widx[s]]['Summary'], s) for s in xrange(len(widx))])
+        challenges += " ".join([style.wholeBlock(wholeData[widx[c]]['Challenges/Problems'], c) for c in xrange(len(widx))])
+        nextSteps += " ".join([style.wholeBlock(wholeData[widx[n]]['Next Steps'], n) for n in xrange(len(widx))])
+
     if (len(bidx) > 0):
         focus += " ".join([style.buildBlock(buildData[bidx[f]]['Focus'], f) for f in xrange(len(bidx))])
         summary += " ".join([style.buildBlock(buildData[bidx[s]]['Summary'], s) for s in xrange(len(bidx))])
@@ -93,13 +99,6 @@ def generateLatex20409(style, businessData, buildData, codingData, wholeData, me
         summary += " ".join([style.businessBlock(businessData[aidx[s]]['Summary'], s) for s in xrange(len(aidx))])
         challenges += " ".join([style.businessBlock(businessData[aidx[c]]['Challenges/Problems'], c) for c in xrange(len(aidx))])
         nextSteps += " ".join([style.businessBlock(businessData[aidx[n]]['Next Steps'], n) for n in xrange(len(aidx))])
-
-    if (len(widx) > 0):
-        focus += " ".join([style.wholeBlock(wholeData[widx[f]]['Focus'], f) for f in xrange(len(widx))])
-        summary += " ".join([style.wholeBlock(wholeData[widx[s]]['Summary'], s) for s in xrange(len(widx))])
-        challenges += " ".join([style.wholeBlock(wholeData[widx[c]]['Challenges/Problems'], c) for c in xrange(len(widx))])
-        nextSteps += " ".join([style.wholeBlock(wholeData[widx[n]]['Next Steps'], n) for n in xrange(len(widx))])
-
 
     # Gather all of the material in order. "material" is a string file that contains the entire LaTeX document
     material = style.header + date + focus + summary + challenges + nextSteps + style.footer
@@ -129,7 +128,7 @@ def generateLatex13620(style, businessData, buildData, codingData, wholeData, me
     # Crate a nicely formatted date
     date_pretty = displayDate(meeting_date)
     # Generate the header block with the date
-    date = style.formatDate(date_pretty) 
+    date = style.formatDate(date_pretty, int(meeting_date.split("/")[0])) 
 
     ###################################
     # For each of our three headers, write the header (including the dotted line)
@@ -142,9 +141,14 @@ def generateLatex13620(style, businessData, buildData, codingData, wholeData, me
     # Check if no entries for the team
     if (len(bidx) + len(cidx) + len(aidx) + len(widx)) == 0:
         return None
- 
+
+    if (len(widx) > 0):
+        whole += style.wholeHeader
+        whole += " ".join([style.wholeBlock(wholeData[widx[f]], f) for f in xrange(len(widx))]) 
     if (len(bidx) > 0): 
         building += style.buildingHeader
+        if len(widx) > 0: 
+            building += style.buildingHeaderOffset
         building += "".join([style.buildBlock(buildData[bidx[f]], f) for f in xrange(len(bidx))])
     if (len(cidx) > 0): 
         coding += style.codingHeader
@@ -152,9 +156,6 @@ def generateLatex13620(style, businessData, buildData, codingData, wholeData, me
     if (len(aidx) > 0): 
         business += style.businessHeader
         business += " ".join([style.businessBlock(businessData[aidx[f]], f) for f in xrange(len(aidx))])
-    if (len(widx) > 0):
-        whole += style.wholeHeader
-        whole += " ".join([style.wholeBlock(wholeData[widx[f]], f) for f in xrange(len(widx))])
 
     # Gather all of the material in order. "material" is a string file that contains the entire LaTeX document
     material = style.header + date + whole + building + coding + business + style.footer
@@ -165,7 +166,7 @@ def generateLatex13620(style, businessData, buildData, codingData, wholeData, me
     fileName = 'pages/{}/{}.tex'.format(style.teamNumber, save_date)
 
     # Write LaTex 
-    f = open(fileName, 'a')
+    f = open(fileName, 'w')
     f.write(material)
     f.close()
 
@@ -192,7 +193,7 @@ if __name__ == '__main__':
     spec13620 = style13620.Team13620()
 
     # For each date, create the file
-    for i in xrange(3): #len(dateList)):
+    for i in xrange(len(dateList)):
         print('DATE {}'.format(dateList[i]))
         # Generate LaTeX file. Then PDF, then PNG
         fileName13620 = generateLatex13620(spec13620, aData, bData, cData, wData, dateList[i])
