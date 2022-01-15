@@ -199,6 +199,6 @@ if __name__ == '__main__':
         fileName13620 = generateLatex13620(spec13620, aData, bData, cData, wData, dateList[i])
         generatePDF(fileName13620, spec13620.teamNumber)
 
-        #fileName20409 = generateLatex20409(spec20409, aData, bData, cData, wData, dateList[i])
-        #generatePDF(fileName20409, spec20409.teamNumber)
+        fileName20409 = generateLatex20409(spec20409, aData, bData, cData, wData, dateList[i])
+        generatePDF(fileName20409, spec20409.teamNumber)
 

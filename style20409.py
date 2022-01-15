@@ -9,14 +9,17 @@ class Team20409(object):
         self.teamNumber = 20409
 
         self.header = "\documentclass[16pt]{extarticle}"
-        self.header += "\usepackage[margin=0.6in]{geometry} \usepackage{tikz,lipsum,lmodern} \usepackage[most]{tcolorbox} \\tcbuselibrary{listings,breakable} \usepackage[default]{lato} \usepackage[T1]{fontenc} \usepackage{tikz} \usepackage{dashrule} \usepackage{comment} \usepackage{eso-pic} \usepackage{ifthen} \usepackage{changepage} \usepackage{xcolor}" # \usepackage{tinos}"
+        self.header += "\usepackage[margin=0.6in]{geometry} \usepackage{tikz,lipsum, dashrule, comment, eso-pic, ifthen, changepage, xcolor}"
+        self.header += "\usepackage[most]{tcolorbox} \\tcbuselibrary{listings,breakable}" 
+        self.header += "\usepackage{lmodern} \usepackage[default]{lato} \usepackage[T1]{fontenc}"
+        #self.header += "\usepackage[T1]{fontenc} \usepackage{tinos}"
 
         colors = "\definecolor{customBlack}{RGB}{120, 137, 129}"
         colors += "\definecolor{buildBlue}{RGB}{233, 235, 235}"
         colors += "\definecolor{codeBlue}{RGB}{214, 216, 218} "
         colors += "\definecolor{businessBlue}{RGB}{196, 200, 202}" 
 
-        colors += "\definecolor{textGrey}{RGB}{0, 0, 0}"   # TODO need appropriate color
+        colors += "\definecolor{textGrey}{RGB}{0, 0, 0}"  
         colors += "\definecolor{wholeBlue}{RGB}{243, 245, 245}"
         colors += "\definecolor{backgroundColor}{RGB}{246, 251, 255}"
 
